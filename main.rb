@@ -14,8 +14,7 @@ def function_v(func, v_x)
         valor += v_x **(element[0][1..].to_i)
       else
         unless func[i-1].include?("x")
-          valor += element[0].to_f
-          next
+          valor += element[0..].join("").to_f
         else
           valor += v_x *(element[0].to_f)
         end
@@ -31,7 +30,7 @@ end
 def riemann(i_x, f_x, div, l, f)
   i_x *= -1 if i_x < 0
   f_x *= -1 if f_x < 0
-  base = (i_x + f_x) / div
+  base = (f_x - i_x) / div
 
   (l == "i")? x = i_x : x = i_x + base
 
@@ -64,10 +63,15 @@ def main
   resul = riemann(init_x, fin_x, subdiv, lado, function)
 
   puts "El area aproximada es: #{resul[1]}"
-  puts "El area de cada rectangulo es: "
-  print resul[0]
+  puts "El area de cada rectangulo es: #{resul[0]}"
 end
 
 loop do
+  system("clear")
   main
+  puts "\n Deseas volver hacer otro calculo? s/n"
+  r = gets.chomp.downcase
+  break if r != "s"
 end
+system("clear")
+puts "Bye Bye"
